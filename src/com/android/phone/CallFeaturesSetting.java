@@ -53,12 +53,8 @@ import android.preference.PreferenceScreen;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.telephony.PhoneNumberUtils;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -666,6 +662,9 @@ public class CallFeaturesSetting extends PreferenceActivity
         } else if (preference == mButtonSipCallOptions) {
             handleSipCallOptionsChange(objValue);
         } else if (preference == mFlipAction) {
+            int i = Integer.parseInt((String) objValue);
+            Settings.System.putInt(mPhone.getContext().getContentResolver(), Settings.System.FLIP_ACTION_KEY,
+                    i);
             updateFlipActionSummary((String) objValue);
         } else if (preference == mEnableForwardLookup
                 || preference == mEnablePeopleLookup
@@ -685,8 +684,6 @@ public class CallFeaturesSetting extends PreferenceActivity
         if (mFlipAction != null) {
             String[] summaries = getResources().getStringArray(R.array.flip_action_summary_entries);
             mFlipAction.setSummary(getString(R.string.flip_action_summary, summaries[i]));
-            Settings.System.putInt(getContentResolver(), Settings.System.FLIP_ACTION_KEY,
-                    i);
         }
     }
 
@@ -1705,10 +1702,9 @@ public class CallFeaturesSetting extends PreferenceActivity
 
         if (mFlipAction != null) {
             mFlipAction.setOnPreferenceChangeListener(this);
-            int flipAction = Settings.System.getInt(getContentResolver(),
+            int flipAction = Settings.System.getInt(mPhone.getContext().getContentResolver(),
                     Settings.System.FLIP_ACTION_KEY, 0);
-            mFlipAction.setDefaultValue(String.valueOf(flipAction));
-            mFlipAction.setOnPreferenceChangeListener(this);
+            mFlipAction.setValue(Integer.toString(flipAction));
         }
 
         if (mButtonNoiseSuppression != null) {
@@ -1988,6 +1984,9 @@ public class CallFeaturesSetting extends PreferenceActivity
         }
 
         if (mFlipAction != null) {
+            int flipAction = Settings.System.getInt(getContentResolver(),
+                    Settings.System.FLIP_ACTION_KEY, 0);
+            mFlipAction.setValue(Integer.toString(flipAction));
             updateFlipActionSummary(mFlipAction.getValue());
         }
 
