@@ -195,8 +195,8 @@ public class CallFeaturesSetting extends PreferenceActivity
     private static final String BUTTON_GSM_UMTS_OPTIONS = "button_gsm_more_expand_key";
     private static final String BUTTON_CDMA_OPTIONS = "button_cdma_more_expand_key";
 
+    private static final String BUTTON_DETAILED_INCALL_INFO_KEY = "button_detailed_incall_info";
     private static final String INCALL_GLOWPAD_TRANSPARENCY = "incall_glowpad_transparency";
-
     private static final String DIALKEY_PADDING = "dialkey_padding";
 
     private static final String VM_NUMBERS_SHARED_PREFERENCES_NAME = "vm_numbers";
@@ -312,6 +312,7 @@ public class CallFeaturesSetting extends PreferenceActivity
     private CheckBoxPreference mPlayDtmfTone;
     private CheckBoxPreference mButtonAutoRetry;
     private CheckBoxPreference mButtonHAC;
+    private CheckBoxPreference mDetailedIncallInfo;
     private CheckBoxPreference mIncallGlowpadTransparency;
     private ListPreference mDialkeyPadding;
     private ListPreference mButtonDTMF;
@@ -606,6 +607,10 @@ public class CallFeaturesSetting extends PreferenceActivity
         } else if (preference == mSmartCall){
 			Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
             mSmartCall.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mSmartCall){
+            Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
+                    mSmartCall.isChecked() ? 1 : 0);
             return true;
         } else if (preference == mCallEndSound){
             Settings.System.putInt(getContentResolver(), Settings.System.CALL_END_SOUND,
@@ -1841,6 +1846,10 @@ public class CallFeaturesSetting extends PreferenceActivity
         mSmartCall = (CheckBoxPreference) findPreference(BUTTON_SMART_PHONE_CALL_KEY);
         mSmartCall.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.SMART_PHONE_CALLER, 0) != 0 ? true : false);
+
+        mDetailedIncallInfo = (CheckBoxPreference) findPreference(BUTTON_DETAILED_INCALL_INFO_KEY);
+        mDetailedIncallInfo.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.DETAILED_INCALL_INFO, 0) != 0 ? true : false);
 
         mCallEndSound = (CheckBoxPreference) findPreference(BUTTON_CALL_END_SOUND_KEY);
         mCallEndSound.setChecked(Settings.System.getInt(getContentResolver(),

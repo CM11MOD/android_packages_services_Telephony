@@ -63,6 +63,9 @@
     <string name="phone_number_label">Moje telefonní číslo</string>
     <string name="phone_number_summary">Nastavení telefonního čísla pro toto zařízení</string>
 
+    <string name="detailed_incall_info_title">Detailní info příchozího hovoru</string>
+    <string name="detailed_incall_info_summary">Zobrazí další informace (společnost, pozici, město a přezdívku) na obrazovce příchozího hovoru.</string>
+
     <string name="noise_suppression_title">Potlačení hluku</string>
     <string name="noise_suppression_summary">Povolit potlačení okolního hluku při hovorech</string>
 </resources>
