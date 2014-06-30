@@ -213,6 +213,7 @@ public class CallFeaturesSetting extends PreferenceActivity
             "button_choose_reverse_lookup_provider";
 
     private static final String BUTTON_NON_INTRUSIVE_INCALL_KEY = "button_non_intrusive_incall";
+    private static final String BUTTON_CALL_UI_AS_HEADS_UP = "bg_incall_screen_as_heads_up";
     private static final String BUTTON_CALL_END_SOUND_KEY = "button_call_end_sound";
     private static final String BUTTON_SMART_PHONE_CALL_KEY = "button_smart_phone_call";
 
@@ -311,6 +312,7 @@ public class CallFeaturesSetting extends PreferenceActivity
     private SipSharedPreferences mSipSharedPreferences;
     private PreferenceScreen mButtonBlacklist;
     private CheckBoxPreference mNonIntrusiveInCall;
+    private CheckBoxPreference mButtonCallUiAsHeadsUp;
     private CheckBoxPreference mCallEndSound;
     private CheckBoxPreference mSmartCall;
     private ListPreference mFlipAction;
@@ -586,6 +588,8 @@ public class CallFeaturesSetting extends PreferenceActivity
             Settings.System.putInt(getContentResolver(), Settings.System.NON_INTRUSIVE_INCALL,
                     mNonIntrusiveInCall.isChecked() ? 1 : 0);
             return true;
+        } else if (preference == mButtonCallUiAsHeadsUp) {
+            return true;
         } else if (preference == mSmartCall){
 			Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
             mSmartCall.isChecked() ? 1 : 0);
@@ -679,6 +683,10 @@ public class CallFeaturesSetting extends PreferenceActivity
             }
         } else if (preference == mButtonSipCallOptions) {
             handleSipCallOptionsChange(objValue);
+        } else if (preference == mButtonCallUiAsHeadsUp) {
+            Settings.System.putInt(mPhone.getContext().getContentResolver(),
+                    Settings.System.CALL_UI_AS_HEADS_UP,
+                    (Boolean) objValue ? 1 : 0);
         } else if (preference == mFlipAction) {
             int i = Integer.parseInt((String) objValue);
             Settings.System.putInt(mPhone.getContext().getContentResolver(), Settings.System.FLIP_ACTION_KEY,
@@ -1644,6 +1652,8 @@ public class CallFeaturesSetting extends PreferenceActivity
         mButtonAutoRetry = (CheckBoxPreference) findPreference(BUTTON_RETRY_KEY);
         mButtonHAC = (CheckBoxPreference) findPreference(BUTTON_HAC_KEY);
         mButtonTTY = (ListPreference) findPreference(BUTTON_TTY_KEY);
+        mButtonCallUiAsHeadsUp =
+                (CheckBoxPreference) findPreference(BUTTON_CALL_UI_AS_HEADS_UP);
         mIncallGlowpadTransparency =
             (CheckBoxPreference) findPreference(INCALL_GLOWPAD_TRANSPARENCY);
         mDialkeyPadding =
@@ -1746,6 +1756,10 @@ public class CallFeaturesSetting extends PreferenceActivity
 
         if (mIncallGlowpadTransparency != null) {
             mIncallGlowpadTransparency.setOnPreferenceChangeListener(this);
+        }
+
+        if (mButtonCallUiAsHeadsUp!= null) {
+            mButtonCallUiAsHeadsUp.setOnPreferenceChangeListener(this);
         }
 
         if (mDialkeyPadding != null) {
@@ -2058,6 +2072,12 @@ public class CallFeaturesSetting extends PreferenceActivity
         if (migrateVoicemailVibrationSettingsIfNeeded(prefs)) {
             mVoicemailNotificationVibrate.setChecked(prefs.getBoolean(
                     BUTTON_VOICEMAIL_NOTIFICATION_VIBRATE_KEY, false));
+        }
+
+        if (mButtonCallUiAsHeadsUp != null) {
+            int callUiAsHeadsUp = Settings.System.getInt(getContentResolver(),
+                    Settings.System.CALL_UI_AS_HEADS_UP, 1);
+            mButtonCallUiAsHeadsUp.setChecked(callUiAsHeadsUp != 0);
         }
 
         if (mIncallGlowpadTransparency != null) {

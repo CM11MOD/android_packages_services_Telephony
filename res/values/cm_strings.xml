@@ -111,6 +111,10 @@
     <string name="torch_incoming_title">Pulse torch on incoming call</string>
     <string name="torch_incoming_seekbar_title">Torch pulse rate</string>
 
+    <!-- Heads Up-->
+    <string name="bg_incall_as_heads_up">Show as heads up</string>
+    <string name="bg_incall_as_heads_up_summary">Show incoming call in background notification as heads up.</string>
+
     <!-- Incall Glowpad transparency -->
     <string name="glow_bg_trans">Incoming call</string>
     <string name="glow_bg_trans_summary">Make glowpad background transparent during incoming call so entire contact picture is visible</string>
