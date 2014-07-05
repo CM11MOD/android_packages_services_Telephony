@@ -33,7 +33,6 @@ import com.android.internal.telephony.cdma.CdmaInformationRecords.CdmaSignalInfo
 import com.android.internal.telephony.cdma.SignalToneUtil;
 import com.android.internal.telephony.gsm.SuppServiceNotification;
 import com.android.internal.telephony.util.BlacklistUtils;
-import com.android.internal.util.slim.QuietHoursHelper;
 import com.android.phone.CallFeaturesSetting;
 
 import android.app.ActivityManagerNative;
@@ -497,7 +496,10 @@ public class CallNotifier extends Handler
         // when the caller-id query completes or times out.
 
         // Finally, do the Quiet Hours ringer handling
-        if (QuietHoursHelper.inQuietHours(mApplication, Settings.System.QUIET_HOURS_RINGER)) {
+        final boolean quietHoursEnabled = Settings.System.getInt(mApplication.getContentResolver(),
+                Settings.System.QUIET_HOURS_RINGER, 0) == 2;
+
+        if (quietHoursEnabled) {
             if (DBG) log("Incoming call from " + number + " received during Quiet Hours.");
             // Determine what type of Quiet Hours we are in and act accordingly
             int muteType = Settings.System.getInt(mApplication.getContentResolver(),
