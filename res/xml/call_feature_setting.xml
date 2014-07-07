@@ -17,6 +17,57 @@
     xmlns:phone="http://schemas.android.com/apk/res/com.android.phone"
     android:title="@string/call_settings">
 
+
+    <PreferenceCategory
+        android:key="incall_interface"
+        android:title="@string/preference_category_interface"/>
+
+        <ListPreference
+            android:key="flip_action"
+            android:title="@string/flip_action_title"
+            android:dialogTitle="@string/flip_action_dialog_title"
+            android:entries="@array/flip_action_setting_entries"
+            android:entryValues="@array/flip_action_setting_values"
+            android:persistent="false"
+            android:defaultValue="0" />
+
+        <CheckBoxPreference
+            android:key="button_smart_phone_call"
+            android:title="@string/smart_phone_call_title"
+            android:summary="@string/smart_phone_call_summary"
+            android:persistent="false"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="bg_incall_screen"
+            android:title="@string/bg_incall"
+            android:persistent="false"
+            android:defaultValue="true"
+            android:summary="@string/bg_incall_summary"/>
+
+        <CheckBoxPreference
+            android:key="bg_incall_screen_as_heads_up"
+            android:title="@string/bg_incall_as_heads_up"
+            android:persistent="false"
+            android:dependency="bg_incall_screen"
+            android:defaultValue="true"
+            android:summary="@string/bg_incall_as_heads_up_summary"/>
+
+        <CheckBoxPreference
+            android:key="incall_glowpad_transparency"
+            android:title="@string/glow_bg_trans"
+            android:persistent="false"
+            android:defaultValue="false"
+            android:summary="@string/glow_bg_trans_summary"/>
+
+        <ListPreference
+            android:key="dialkey_padding"
+            android:title="@string/dialkey_padding_title"
+            android:dialogTitle="@string/dialkey_padding_dialog_title"
+            android:entries="@array/dialkey_padding_setting_entries"
+            android:entryValues="@array/dialkey_padding_setting_values"
+            android:persistent="false" />
+
     <PreferenceCategory
         android:key="button_ringtone_category_key"
         android:title="@string/preference_category_ringtone"
@@ -46,15 +97,6 @@
             android:title="@string/torch_incoming_seekbar_title"
             android:persistent="false"
             android:dependency="torch_pulse" />
-
-        <ListPreference
-            android:key="flip_action"
-            android:title="@string/flip_action_title"
-            android:dialogTitle="@string/flip_action_dialog_title"
-            android:entries="@array/flip_action_setting_entries"
-            android:entryValues="@array/flip_action_setting_values"
-            android:persistent="false"
-            android:defaultValue="0" />
     </PreferenceCategory>
 
   <PreferenceCategory
@@ -298,42 +340,5 @@
             android:targetPackage="com.android.phone"
             android:targetClass="com.android.phone.CdmaCallOptions"/>
     </PreferenceScreen>
-
-    <CheckBoxPreference
-        android:key="button_smart_phone_call"
-        android:title="@string/smart_phone_call_title"
-        android:summary="@string/smart_phone_call_summary"
-        android:persistent="false"
-        android:defaultValue="false" />
-
-    <CheckBoxPreference
-        android:key="bg_incall_screen"
-        android:title="@string/bg_incall"
-        android:persistent="false"
-        android:defaultValue="false"
-        android:summary="@string/bg_incall_summary"/>
-
-    <CheckBoxPreference
-        android:key="bg_incall_screen_as_heads_up"
-        android:title="@string/bg_incall_as_heads_up"
-        android:persistent="false"
-        android:dependency="bg_incall_screen"
-        android:defaultValue="true"
-        android:summary="@string/bg_incall_as_heads_up_summary"/>
-
-    <CheckBoxPreference
-        android:key="incall_glowpad_transparency"
-        android:title="@string/glow_bg_trans"
-        android:persistent="false"
-        android:defaultValue="false"
-        android:summary="@string/glow_bg_trans_summary"/>
-
-    <ListPreference
-        android:key="dialkey_padding"
-        android:title="@string/dialkey_padding_title"
-        android:dialogTitle="@string/dialkey_padding_dialog_title"
-        android:entries="@array/dialkey_padding_setting_entries"
-        android:entryValues="@array/dialkey_padding_setting_values"
-        android:persistent="false" />
 
 </PreferenceScreen>
