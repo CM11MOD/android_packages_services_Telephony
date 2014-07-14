@@ -400,7 +400,7 @@ public class PhoneInterfaceManager extends ITelephony.Stub implements CallModele
         }
         mPhone.setPreferredNetworkType(network,
                 mMainThreadHandler.obtainMessage(CMD_TOGGLE_2G));
-        Settings.Secure.putInt(mApp.getContentResolver(),
+        Settings.Global.putInt(mApp.getContentResolver(),
                 Settings.Global.PREFERRED_NETWORK_MODE, network);
     }
 
