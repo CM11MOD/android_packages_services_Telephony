@@ -141,4 +141,10 @@
     <string name="entry_15dip">15dip</string>
     <string name="entry_20dip">20dip</string>
     <string name="entry_25dip">25dip</string>
+
+    <!-- dialpad t9 search -->
+    <string name="preference_category_t9_dialpad_search">Dialpad T9 Search</string>
+    <string name="t9_search_input_locale">T9 Search Input</string>
+    <string name="t9_search_input_locale_default">Default</string>
+
 </resources>
