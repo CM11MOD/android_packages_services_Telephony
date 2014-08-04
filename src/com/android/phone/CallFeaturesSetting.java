@@ -2093,7 +2093,7 @@ public class CallFeaturesSetting extends PreferenceActivity
 
         if (mButtonCallUiInBackground != null) {
             int callUiInBackground = Settings.System.getInt(getContentResolver(),
-                    Settings.System.CALL_UI_IN_BACKGROUND, 0);
+                    Settings.System.CALL_UI_IN_BACKGROUND, 1);
             mButtonCallUiInBackground.setChecked(callUiInBackground != 0);
         }
 
