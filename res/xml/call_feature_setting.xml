@@ -42,7 +42,7 @@
             android:key="bg_incall_screen"
             android:title="@string/bg_incall"
             android:persistent="false"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:summary="@string/bg_incall_summary"/>
 
         <CheckBoxPreference
@@ -50,7 +50,7 @@
             android:title="@string/bg_incall_as_heads_up"
             android:persistent="false"
             android:dependency="bg_incall_screen"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:summary="@string/bg_incall_as_heads_up_summary"/>
 
         <CheckBoxPreference
