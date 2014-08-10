@@ -202,6 +202,9 @@ public final class Call implements Parcelable {
     // Whether the call is held remotely
     private boolean mHeldRemotely;
 
+    // Whether the dialing state is waiting for the busy remote side
+    private boolean mDialingIsWaiting;
+
     public Call(int callId) {
         mCallId = callId;
         mIdentification = new CallIdentification(mCallId);
@@ -220,6 +223,7 @@ public final class Call implements Parcelable {
         mGatewayPackage = call.mGatewayPackage;
         mForwarded = call.mForwarded;
         mHeldRemotely = call.mHeldRemotely;
+        mDialingIsWaiting = call.mDialingIsWaiting;
     }
 
     public int getCallId() {
@@ -322,6 +326,10 @@ public final class Call implements Parcelable {
         return mHeldRemotely;
     }
 
+    public boolean isDialingWaiting() {
+        return mDialingIsWaiting;
+    }
+
     public void removeChildId(int id) {
         mChildCallIds.remove(id);
     }
@@ -366,6 +374,10 @@ public final class Call implements Parcelable {
         mHeldRemotely = heldRemotely;
     }
 
+    public void setDialingIsWaiting(boolean dialingIsWaiting) {
+        mDialingIsWaiting = dialingIsWaiting;
+    }
+
     /**
      * Parcelable implementation
      */
@@ -384,6 +396,7 @@ public final class Call implements Parcelable {
         dest.writeParcelable(mIdentification, 0);
         dest.writeInt(mForwarded ? 1 : 0);
         dest.writeInt(mHeldRemotely ? 1 : 0);
+        dest.writeInt(mDialingIsWaiting ? 1 : 0);
     }
 
     /**
@@ -402,6 +415,7 @@ public final class Call implements Parcelable {
         mIdentification = in.readParcelable(CallIdentification.class.getClassLoader());
         mForwarded = in.readInt() != 0;
         mHeldRemotely = in.readInt() != 0;
+        mDialingIsWaiting = in.readInt() != 0;
     }
 
     @Override
@@ -441,6 +455,7 @@ public final class Call implements Parcelable {
                 .add("mIdentification", mIdentification)
                 .add("mForwarded", mForwarded)
                 .add("mHeldRemotely", mHeldRemotely)
+                .add("mDialingIsWaiting", mDialingIsWaiting)
                 .toString();
     }
 }
