@@ -618,14 +618,15 @@ public class CallFeaturesSetting extends PreferenceActivity
             }
         } else if (preference == mButtonCallUiAsHeadsUp) {
             return true;
-        } else if (preference == mSmartCall){
-			Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
-            mSmartCall.isChecked() ? 1 : 0);
-            return true;
-        } else if (preference == mSmartCall){
+        } else if (preference == mSmartCall) {
             Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
                     mSmartCall.isChecked() ? 1 : 0);
             return true;
+        } else if (preference == mDetailedIncallInfo){
+            Settings.System.putInt(getContentResolver(), Settings.System.DETAILED_INCALL_INFO,
+                    mDetailedIncallInfo.isChecked() ? 1 : 0);
+            return true;
+
         } else if (preference == mCallEndSound){
             Settings.System.putInt(getContentResolver(), Settings.System.CALL_END_SOUND,
                     mCallEndSound.isChecked() ? 1 : 0);
@@ -2687,4 +2688,5 @@ public class CallFeaturesSetting extends PreferenceActivity
         activity.startActivity(intent);
         activity.finish();
     }
+
 }
