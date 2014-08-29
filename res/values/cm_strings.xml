@@ -152,9 +152,4 @@
     <string name="incoming_call_style_classic">Classic</string>
     <string name="incoming_call_style_fullscreen_photo">Fullscreen caller photo</string>
 
-    <!-- InCallUI HeadsUp waiver -->
-    <string name="callui_headsup_title">Warning</string>
-    <string name="callui_headsup_body">You have to enable either Hover or HeadsUp notification Service to use this function. \nPress to choose.</string>
-    <string name="button_hover">Hover</string>
-    <string name="button_headsup">HeadsUp</string>
 </resources>

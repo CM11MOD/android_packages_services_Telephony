@@ -227,9 +227,6 @@ public class CallFeaturesSetting extends PreferenceActivity
     private static final String BUTTON_CALL_END_SOUND_KEY = "button_call_end_sound";
     private static final String BUTTON_SMART_PHONE_CALL_KEY = "button_smart_phone_call";
 
-    private boolean mDialogClicked;
-    private Dialog mHeadsupDialog;
-
     private Intent mContactListIntent;
 
     /** Event for Async voicemail change call */
@@ -620,76 +617,6 @@ public class CallFeaturesSetting extends PreferenceActivity
                 return false;
             }
         } else if (preference == mButtonCallUiAsHeadsUp) {
-            int CallUiAsHeadsUp = mButtonCallUiAsHeadsUp.isChecked() ? 1 : 0;
-
-            Settings.System.putInt(mPhone.getContext().getContentResolver(),
-                    Settings.System.CALL_UI_AS_HEADS_UP,
-                    CallUiAsHeadsUp);
-
-            boolean serviceEnabled = Settings.System.getInt(getContentResolver(),
-                                        Settings.System.HOVER_ACTIVE, 0) == 1 ||
-                                     Settings.System.getInt(getContentResolver(),
-                                        Settings.System.HEADS_UP_NOTIFICATION, 0) == 1;
-
-            if (mButtonCallUiAsHeadsUp.isChecked()  && !serviceEnabled) {
-                // User is trying to enable the feature, display the waiver
-                mDialogClicked = false;
-                dismissDialog();
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage(R.string.callui_headsup_body);
-                builder.setTitle(R.string.callui_headsup_title);
-                builder.setNegativeButton(R.string.button_hover, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (dialog == mHeadsupDialog) {
-                            if (which == DialogInterface.BUTTON_NEGATIVE) {
-                                mDialogClicked = true;
-                                Settings.System.putInt(getContentResolver(),
-                                        Settings.System.HOVER_ENABLED, 1);
-                                Settings.System.putInt(getContentResolver(),
-                                        Settings.System.HOVER_ACTIVE, 1);
-                                Settings.System.putInt(getContentResolver(),
-                                        Settings.System.CALL_UI_AS_HEADS_UP, 1);
-                            }
-                        }
-                    }
-                });
-
-                builder.setPositiveButton(R.string.button_headsup, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (dialog == mHeadsupDialog) {
-                            if (which == DialogInterface.BUTTON_POSITIVE) {
-                                mDialogClicked = true;
-                                Settings.System.putInt(getContentResolver(),
-                                        Settings.System.HEADS_UP_NOTIFICATION, 1);
-                                Settings.System.putInt(getContentResolver(),
-                                        Settings.System.CALL_UI_AS_HEADS_UP, 1);
-                            }
-                        }
-                    }
-                });
-
-                mHeadsupDialog = builder.show();
-                mHeadsupDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        // Assuming that onClick gets called first
-                        if (dialog == mHeadsupDialog) {
-                            if (!mDialogClicked) {
-                                mButtonCallUiAsHeadsUp.setChecked(false);
-                            }
-                            mButtonCallUiAsHeadsUp = null;
-                        }
-                    }
-                });
-            } else {
-                Settings.System.putInt(getContentResolver(),
-                        Settings.System.CALL_UI_AS_HEADS_UP, 0);
-            }
             return true;
         } else if (preference == mSmartCall) {
             Settings.System.putInt(getContentResolver(), Settings.System.SMART_PHONE_CALLER,
@@ -792,6 +719,10 @@ public class CallFeaturesSetting extends PreferenceActivity
             }
         } else if (preference == mButtonSipCallOptions) {
             handleSipCallOptionsChange(objValue);
+        } else if (preference == mButtonCallUiAsHeadsUp) {
+            Settings.System.putInt(mPhone.getContext().getContentResolver(),
+                    Settings.System.CALL_UI_AS_HEADS_UP,
+                    (Boolean) objValue ? 1 : 0);
         } else if (preference == mFlipAction) {
             int i = Integer.parseInt((String) objValue);
             Settings.System.putInt(mPhone.getContext().getContentResolver(), Settings.System.FLIP_ACTION_KEY,
@@ -2757,10 +2688,4 @@ public class CallFeaturesSetting extends PreferenceActivity
         activity.finish();
     }
 
-    private void dismissDialog() {
-        if (mHeadsupDialog != null) {
-            mHeadsupDialog.dismiss();
-            mHeadsupDialog = null;
-        }
-    }
 }
