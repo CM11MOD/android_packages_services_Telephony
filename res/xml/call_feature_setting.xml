@@ -45,13 +45,16 @@
             android:defaultValue="false"
             android:summary="@string/bg_incall_summary"/>
 
-        <CheckBoxPreference
+        <ListPreference
             android:key="bg_incall_screen_as_heads_up"
             android:title="@string/bg_incall_as_heads_up"
+            android:summary="@string/bg_incall_as_heads_up_summary"
+            android:dialogTitle="@string/bg_incall_as_heads_up"
+            android:entries="@array/headsup_callui_entries"
+            android:entryValues="@array/headsup_callui_values"
             android:persistent="false"
             android:dependency="bg_incall_screen"
-            android:defaultValue="false"
-            android:summary="@string/bg_incall_as_heads_up_summary"/>
+            android:defaultValue="0" />
 
         <CheckBoxPreference
             android:key="button_detailed_incall_info"
