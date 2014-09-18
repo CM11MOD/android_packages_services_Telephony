@@ -149,6 +149,14 @@
             android:persistent="true"
             android:summary="@string/vibrate_45_sum" />
 
+        <ListPreference
+			android:key="call_recording_format"
+			android:title="@string/call_recording_format"
+			android:summary="%s"
+			android:entries="@array/call_recording_encoder_entries"
+			android:entryValues="@array/call_recording_encoder_values"
+			android:persistent="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
