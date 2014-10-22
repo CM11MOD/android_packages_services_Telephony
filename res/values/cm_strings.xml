@@ -163,4 +163,7 @@
     <string name="wb_amr_format">WB AMR</string>
     <string name="aac_format">AAC</string>
 
+    <string name="prox_auto_speaker_title">Automatic proximity speaker</string>
+    <string name="prox_auto_speaker_summary">Enable speakerphone when the device is removed from your face</string>
+
 </resources>
