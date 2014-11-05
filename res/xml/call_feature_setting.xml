@@ -46,6 +46,13 @@
             android:defaultValue="false" />
 
         <CheckBoxPreference
+            android:key="prox_auto_speaker_incall_only"
+            android:title="@string/prox_auto_speaker_incall_only_title"
+            android:summary="@string/prox_auto_speaker_incall_only_summary"
+            android:persistent="false"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="bg_incall_screen"
             android:title="@string/bg_incall"
             android:persistent="false"
